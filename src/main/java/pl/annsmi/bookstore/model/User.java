@@ -4,12 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table()
+@Table(name = "users")
 
 public class User {
     @Id
@@ -17,8 +19,13 @@ public class User {
     private int id;
     private String name;
     private String surname;
-    private String nick;
+    @Email
+    @NotBlank
+    private String email;
+    @NotBlank
     private String password;
-    //private List<Book> books;
+    private String address;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Transaction> transactions;
 
 }

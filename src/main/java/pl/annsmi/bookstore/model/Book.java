@@ -6,11 +6,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @Entity
-@Table()
+@Table(name = "books")
 
 public class Book {
     @JsonIgnore
@@ -19,12 +20,14 @@ public class Book {
     private int id;
     @NotBlank(message = "A book must have a title!")
     private String title;
-    private String description;
-    @NotBlank(message = "Book must have an author!")
+    @NotNull
+    @Column(name="author_id")
     private int authorId;
-    @NotBlank()
-    private boolean checkedOut;
-    @NotBlank
-    private String category;
+    @NotNull()
+    private boolean purchased;
+    @NotNull()
+    @Column(name="catgory_id")
+    private int categoryId;
+    private String description;
 
 }
