@@ -1,12 +1,14 @@
 package pl.annsmi.bookstore.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -20,7 +22,6 @@ public class Author {
     private String name;
     @NotBlank
     private String surname;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="author_id", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     private Set<Book> books;
 }
