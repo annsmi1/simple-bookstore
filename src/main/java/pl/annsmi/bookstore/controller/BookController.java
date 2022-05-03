@@ -21,13 +21,20 @@ public class BookController {
     }
 
     @GetMapping("/books")
-//    ResponseEntity<List<ReadBookDTO>> readAllBooks(){
-//        return ResponseEntity.ok(service.readAll());
-//    }
-
-    public List<ReadBookDTO> readAllBooks(){
-        return service.readAll();
+    ResponseEntity<List<ReadBookDTO>> readAllBooks(){
+        return ResponseEntity.ok(service.readAll());
     }
+
+    @GetMapping("/books/{id}")
+    ResponseEntity<ReadBookDTO> readSingleBook(@RequestParam int id){
+        try{
+            return ResponseEntity.ok(service.readSingleBook(id));
+        }
+        catch (IllegalArgumentException e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
     @PutMapping("/books/{id}")
     ResponseEntity<?> updateBook(@PathVariable int id, @RequestBody @Valid WriteBookDTO source){
@@ -35,15 +42,20 @@ public class BookController {
             service.updateBook(id,source);
             return ResponseEntity.noContent().build();
         }
-        catch (IllegalArgumentException exception){
-            return ResponseEntity.notFound().build();
+        catch (IllegalArgumentException | IllegalStateException exception){
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @PostMapping("/books")
     ResponseEntity<?> addBook(@RequestBody @Valid WriteBookDTO toAdd){
+        try{
         service.addBook(toAdd);
         return ResponseEntity.noContent().build();
+        }
+        catch(IllegalStateException exception){
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
 

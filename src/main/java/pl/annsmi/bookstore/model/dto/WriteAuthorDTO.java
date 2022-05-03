@@ -12,19 +12,15 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class WriteAuthorDTO {
-//    private int id;
+
     private String name;
     private String surname;
-//    private Set<WriteBookDTO> books;
 
-//    public Author toAuthor(){
-//        var result = new Author();
-//        result.setId(id);
-//        result.setName(name);
-//        result.setSurname(surname);
-////        result.setBooks(books.stream()
-////                .map(WriteBookDTO::toBook)
-////                .collect(Collectors.toSet()));
-//        return result;
-//    }
+
+    public Author toAuthor(){
+        var result = new Author();
+        result.setName(name);
+        result.setSurname(surname);
+        return result;
+    }
 }

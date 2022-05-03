@@ -16,9 +16,4 @@ public class WriteBookDTO {
     private String description;
     private float price;
 
-//    public Book toBook(){
-//        var result = new Book();
-//        result.setTitle(title);
-//        result.setAuthor(author.toAuthor());
-//    }
 }
